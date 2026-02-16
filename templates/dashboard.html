@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DQM Lite Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+
+  <body>
+    <h1>DQM Lite Dashboard</h1>
+    <p>Run metrics over time</p>
+
+    <div id="mean_plot" style="width: 100%; height: 400px;"></div>
+    <div id="stddev_plot" style="width: 100%; height: 400px;"></div>
+    <div id="outlier_plot" style="width: 100%; height: 400px;"></div>
+
+    <script>
+      // Initial data passed from FastAPI
+      let historyData = {{ history_json | safe }};
+
+      function renderCharts(data) {
+        const runIds = data.map(r => r.run_id);
+        const means = data.map(r => r.mean);
+        const stddevs = data.map(r => r.stddev);
+        const outliers = data.map(r => r.outlier_count);
+        const statuses = data.map(r => r.status);
+        const colors = statuses.map(s => s === "GOOD" ? "green" : "red");
+
+        Plotly.react('mean_plot', [{
+          x: runIds,
+          y: means,
+          mode: 'lines+markers',
+          marker: { color: colors }
+        }], {
+          title: 'Mean per Run',
+          xaxis: { title: 'Run ID' },
+          yaxis: { title: 'Mean' }
+        });
+
+        Plotly.react('stddev_plot', [{
+          x: runIds,
+          y: stddevs,
+          mode: 'lines+markers',
+          marker: { color: colors }
+        }], {
+          title: 'Stddev per Run',
+          xaxis: { title: 'Run ID' },
+          yaxis: { title: 'Stddev' }
+        });
+
+        Plotly.react('outlier_plot', [{
+          x: runIds,
+          y: outliers,
+          type: 'bar',
+          marker: { color: colors }
+        }], {
+          title: 'Outlier Count per Run',
+          xaxis: { title: 'Run ID' },
+          yaxis: { title: 'Outlier Count' }
+        });
+      }
+
+      // Render initial charts
+      renderCharts(historyData);
+
+      // Auto-refresh logic
+      async function refreshData() {
+        try {
+          const response = await fetch("/metrics/history");
+          const newData = await response.json();
+          historyData = newData;
+          renderCharts(historyData);
+        } catch (err) {
+          console.error("Auto-refresh failed:", err);
+        }
+      }
+
+      // Refresh every 5 seconds
+      setInterval(refreshData, 5000);
+    </script>
+  </body>
+</html>

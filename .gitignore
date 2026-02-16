@@ -1,0 +1,19 @@
+project.log
+
+# Build artifacts
+cpp/build/
+cpp/build/*
+
+# Generated data
+data/run_*.csv
+
+# SQLite DB
+dqm.db
+
+# Python cache
+__pycache__/
+python/__pycache__/
+
+# OS/editor junk
+*.DS_Store
+*.swp
