@@ -1,4 +1,4 @@
-# **DQM Lite — A Mini Data Quality Monitoring Pipeline**
+# **DQM Lite: A Mini Data Quality Monitoring Pipeline**
 
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
