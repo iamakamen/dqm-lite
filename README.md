@@ -4,13 +4,23 @@
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![C++](https://img.shields.io/badge/C%2B%2B-17-red)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.95%2B-009688)
-![Status](https://img.shields.io/badge/Status-Active-success)
+![SQLite](https://img.shields.io/badge/SQLite-3.0%2B-003B57)
 
 
 **DQM Lite** is a lightweight, end‑to‑end Data Quality Monitoring (DQM) system inspired by real observability pipelines used in scientific experiments and distributed systems.  
 It demonstrates how data flows through a modern monitoring stack: **generation → processing → storage → API → dashboard**.
 
 This project blends **Python**, **C++**, **FastAPI**, **SQLite**, **Plotly**, and **Jinja2** into a clean, modular architecture suitable for learning, showcasing, or extending into more advanced monitoring tools.
+
+
+## Table of Contents
+- [Features](#features)
+- [Architecture](#architecture)
+- [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Future Enhancements](#future-enhancements)
+- [License](#license)
+
 
 ---
 
@@ -137,12 +147,11 @@ flowchart TB
   - Fetches data from `/metrics/history`  
 
 This layered architecture mirrors real-world monitoring systems, ensuring clarity, modularity, and extensibility.
-```
 
 
 ---
 
-## ▶️ Running the Entire Pipeline
+## Getting Started
 
 ### **One command to run everything:**
 
@@ -180,24 +189,6 @@ http://localhost:8000/dashboard
 
 ---
 
-## Dashboard
-
-The dashboard includes:
-
-- Mean per Run (line plot)  
-- Stddev per Run (line plot)  
-- Outlier Count per Run (bar chart)  
-- GOOD/BAD color coding  
-- Auto-refresh every 5 seconds  
-
-Built using:
-
-- Plotly  
-- Jinja2  
-- FastAPI  
-- JavaScript fetch loop  
-
----
 
 ## Future Enhancements
 
@@ -213,4 +204,4 @@ Built using:
 
 ## License
 
-MIT License — free to use, modify, and extend.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
